@@ -21,8 +21,8 @@ sharebutton = {
 		 * Config for twitter
 		 */
 		 twitter:{
-		 	url:sharebutton.config.url,
-		 	text:sharebutton.config.desc,
+		 	url:window.location.href,
+		 	text:window.document.title,
 		 	via:'',
 		 	hashtags:'',
 		 	related:''
@@ -31,36 +31,39 @@ sharebutton = {
 		 * Config for facebook
 		 */
 		 facebook:{
-		 	url:sharebutton.config.url,
-		 	text:sharebutton.config.desc
+		 	url:window.location.href,
+		 	text:window.document.title
 		 },
 		 /**
 		  * Linkedin button
 		  * @type {Object}
 		  */
 		  linkedin:{
-		  	url:sharebutton.config.url,
-		  	title:sharebutton.config.tite,
-		  	summary:sharebutton.config.desc,
-		  	source:sharebutton.config.url
+		  	url:window.location.href,
+		  	title:window.document.title,
+		  	summary:window.document.title,
+		  	source:window.location.href
 		  },
 		 /**
 		  * Google plus button
 		  * @type {Object}
 		  */
 		  googleplus:{
-		  	url:sharebutton.config.url
+		  	url:window.location.href
 		  },
 		  /**
 		   * Email button
 		   */
 		  email:{
-		  	url:sharebutton.config.url,
-		  	subject:sharebutton.config.title,
-		  	body:sharebutton.config.desc,
+		  	url:window.location.href,
+		  	subject:window.document.title,
+		  	body:window.document.title,
 		  	receiver:''
 		  }
-		}
+	},
+	framesize:{
+		width:520,
+		height:350,
 	},
 	createShareButton:function () {},
 	loadCSS:function () {},
@@ -69,15 +72,70 @@ sharebutton = {
 	createFacebookHREF:function () {},
 	createGooglePlusHREF:function(){},
 	createLinkedinHREF:function(){},
-	createEmailHREF:function(),
-	configFrame:function () {}
+	createEmailHREF:function(){},
+	configFrame:function() {},
+	configSharebutton:function(config){}
 }
 
+sharebutton.configSharebutton = function (config) {
+	sharebutton.config.url =config.url||window.location.href;
+	sharebutton.config.title = config.title||window.document.title;
+	sharebutton.config.desc = config.desc||window.document.title;
+	
+	if(config.twitter){
+		sharebutton.config.twitter.url = config.twitter.url||sharebutton.config.url;
+		sharebutton.config.twitter.text=config.twitter.text||sharebutton.config.desc;
+	}else{
+		sharebutton.config.twitter.url = sharebutton.config.url;
+		sharebutton.config.twitter.text=sharebutton.config.desc;
+	}
+
+	if(config.facebook){
+		sharebutton.config.facebook.url=config.facebook.url||sharebutton.config.url;
+		sharebutton.config.facebook.text = config.facebook.text||sharebutton.config.desc;
+	}else{
+		sharebutton.config.facebook.url=sharebutton.config.url;
+		sharebutton.config.facebook.text = sharebutton.config.desc;
+	}
+
+	if(config.googleplus){
+		sharebutton.config.googleplus.url=config.googleplus.url||sharebutton.config.url;
+	}else{
+		sharebutton.config.googleplus.url=sharebutton.config.url;
+	}
+
+	if(config.linkedin){
+		sharebutton.config.linkedin.url = config.linkedin.url||sharebutton.config.url;
+		sharebutton.config.linkedin.title =config.linkedin.title||sharebutton.config.title;
+		sharebutton.config.linkedin.summary=config.linkedin.summary||sharebutton.config.desc;
+		sharebutton.config.linkedin.source = config.linkedin.source||window.location.href;
+	}else{
+		sharebutton.config.linkedin.url = sharebutton.config.url;
+		sharebutton.config.linkedin.title =sharebutton.config.title;
+		sharebutton.config.linkedin.summary=sharebutton.config.desc;
+		sharebutton.config.linkedin.source = window.location.href;
+	}
+
+	if(config.email){
+		sharebutton.config.email.url = config.email.url||sharebutton.config.url;
+		sharebutton.config.email.subject =config.email.subject||sharebutton.config.title;
+		sharebutton.config.email.body=config.email.body||sharebutton.config.desc;
+	}else{
+		sharebutton.config.email.url = sharebutton.config.url;
+		sharebutton.config.email.subject =sharebutton.config.title;
+		sharebutton.config.email.body=sharebutton.config.desc;
+	}
+
+}
+
+
 sharebutton.loadCSS = function () {
-	var newStyle = document.createElement('link');
-	newStyle.setAttribute('rel','stylesheet');
-	newStyle.setAttribute('href',sharebutton.styleURL);
-	window.document.head.appendChild(newStyle);
+	if(sharebutton.styleURL){
+		var newStyle = document.createElement('link');
+		newStyle.setAttribute('rel','stylesheet');
+		newStyle.setAttribute('href',sharebutton.styleURL);
+		window.document.head.appendChild(newStyle);
+	}
 }
 
 sharebutton.getShareButtonTemplate = function () {
@@ -86,7 +144,10 @@ sharebutton.getShareButtonTemplate = function () {
 	return htmlTemplateParser.querySelector('#share-button-template');
 }
 
-sharebutton.createShareButton = function () {
+sharebutton.createShareButton = function (config) {
+	if(config){
+		sharebutton.configSharebutton(config);
+	}
 	sharebutton.loadCSS();
 	var btnShares = document.querySelectorAll('.share-button');
 	for(var i=0;i<btnShares.length;i++){
@@ -99,27 +160,27 @@ sharebutton.createShareButton = function () {
 		var btnLinkedin = shareButtonTemp.querySelector('.btnLinkedin');
 		if(btnTwitter){
 			btnTwitter.setAttribute('href',sharebutton.createTwitterHREF());
-			btnTwitter.setAttribute('onclick',sharebutton.configFrame());
+			btnTwitter.setAttribute('onclick',sharebutton.configFrame(sharebutton.framesize.width,sharebutton.framesize.height));
 			currentButtonShare.appendChild(btnTwitter);
 		}
 		if(btnFacebook){
 			btnFacebook.setAttribute('href',sharebutton.createFacebookHREF());
-			btnFacebook.setAttribute('onclick',sharebutton.configFrame());
+			btnFacebook.setAttribute('onclick',sharebutton.configFrame(sharebutton.framesize.width,sharebutton.framesize.height));
 			currentButtonShare.appendChild(btnFacebook);
 		}
 		if(btnGooglePlus){
 			btnGooglePlus.setAttribute('href',sharebutton.createGooglePlusHREF());
-			btnGooglePlus.setAttribute('onclick',sharebutton.configFrame());
+			btnGooglePlus.setAttribute('onclick',sharebutton.configFrame(sharebutton.framesize.width,sharebutton.framesize.height));
 			currentButtonShare.appendChild(btnGooglePlus);
 		}
 		if(btnEmail){
 			btnEmail.setAttribute('href',sharebutton.createEmailHREF());
-			btnEmail.setAttribute('onclick',sharebutton.configFrame());
+			btnEmail.setAttribute('onclick',sharebutton.configFrame(sharebutton.framesize.width,sharebutton.framesize.height));
 			currentButtonShare.appendChild(btnEmail);
 		}
 		if(btnLinkedin){
 			btnLinkedin.setAttribute('href',sharebutton.createLinkedinHREF());
-			btnLinkedin.setAttribute('onclick',sharebutton.configFrame());
+			btnLinkedin.setAttribute('onclick',sharebutton.configFrame(sharebutton.framesize.width,sharebutton.framesize.height));
 			currentButtonShare.appendChild(btnLinkedin);
 		}
 	}
@@ -184,7 +245,7 @@ sharebutton.createFacebookHREF = function () {
  * Config:
 		 linkedin:{
 		  	url:sharebutton.config.url,
-		  	title:sharebutton.config.tite,
+		  	title:window.document.title,
 		  	summary:sharebutton.config.desc,
 		  	source:sharebutton.config.url
 		  },
@@ -264,6 +325,6 @@ sharebutton.createEmailHREF = function () {
 sharebutton.configFrame=function (winWidth,winHeight) {
 	var winTop = (screen.height / 2) - (winHeight / 2);
     var winLeft = (screen.width / 2) - (winWidth / 2);
-    var str = "javascript:window.open(this.href,'','menubar=no,toolbar=no,resizable=true,scrollbar=yes,"+"height="+winHeight+",width="+winWidth+",top="+winTop+",left="winLeft+");return false;";
+    var str = "javascript:window.open(this.href,'','menubar=no,toolbar=no,resizable=true,scrollbar=yes,"+"height="+winHeight+",width="+winWidth+",top="+winTop+",left="+winLeft+");return false;";
     return str;
 }
