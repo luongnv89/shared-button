@@ -173,6 +173,7 @@ sharebutton.createShareButton = function (config) {
 	var btnShares = document.querySelectorAll('.share-button');
 	for(var i=0;i<btnShares.length;i++){
 		var currentButtonShare = btnShares[i];
+		currentButtonShare.innerHTML="";
 		var shareButtonTemp = sharebutton.getShareButtonTemplate();
 		var btnTwitter = shareButtonTemp.querySelector('.btnTwitter');
 		var btnFacebook = shareButtonTemp.querySelector('.btnFacebook');

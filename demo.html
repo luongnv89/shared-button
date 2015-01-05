@@ -12,16 +12,29 @@
 <div class="share-button"></div>
 <script type="text/javascript">
 	var config={
-		url:'http://percevio.com/?bjfbfaijba',
-		title:'Sharebutton | This is the title',
-		desc:'Sharebutton | This is the content',
-		twitter:{
-			via:'luongnv89',
-			related:'luongnv89',
-			hashtags:'sharebutton'
-		}
-	}
+           url:"http://luongnv.info/this-is-custom-url",
+           title:"This is custom title",
+           twitter:{
+              via:'luongnv89',
+              hashtags:'sharebutton'
+           },
+           email:{
+             receiver:'luongnv89@gmail.com'
+           }
+	};
 	sharebutton.createShareButton(config);
+	var config2={
+           url:"http://luongnv.info/this-is-custom-url2",
+           title:"This is custom title2",
+           twitter:{
+              via:'luongnv89',
+              hashtags:'sharebutton'
+           },
+           email:{
+             receiver:'luongnv89@gmail.com'
+           }
+	};
+	sharebutton.createShareButton(config2);
 </script>
 </body>
 </html>
