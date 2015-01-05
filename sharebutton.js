@@ -78,6 +78,22 @@ sharebutton = {
 }
 
 sharebutton.configSharebutton = function (config) {
+	if(!config.title){
+		config.title = window.document.title;
+	}
+
+	if(config.desc){
+		config.desc=config.desc.replace('|',',');
+	}
+
+	if(!config.desc){
+		config.desc = window.document.title;
+	}
+
+	if(config.desc){
+		config.desc=config.desc.replace('|',',');
+	}
+
 	sharebutton.config.url =config.url||window.location.href;
 	sharebutton.config.title = config.title||window.document.title;
 	sharebutton.config.desc = config.desc||window.document.title;
@@ -149,7 +165,7 @@ sharebutton.getShareButtonTemplate = function () {
 	return htmlTemplateParser.querySelector('#share-button-template');
 }
 
-sharebutton.createShareButton = function (config) {
+sharebutton.createShareButton = function (config) {	
 	if(config){
 		sharebutton.configSharebutton(config);
 	}
