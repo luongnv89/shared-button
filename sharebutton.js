@@ -83,6 +83,7 @@ sharebutton.configSharebutton = function (config) {
 	sharebutton.config.desc = config.desc||window.document.title;
 	
 	if(config.twitter){
+		sharebutton.config.twitter=config.twitter;
 		sharebutton.config.twitter.url = config.twitter.url||sharebutton.config.url;
 		sharebutton.config.twitter.text=config.twitter.text||sharebutton.config.desc;
 	}else{
@@ -91,6 +92,7 @@ sharebutton.configSharebutton = function (config) {
 	}
 
 	if(config.facebook){
+		sharebutton.config.facebook = config.facebook;
 		sharebutton.config.facebook.url=config.facebook.url||sharebutton.config.url;
 		sharebutton.config.facebook.text = config.facebook.text||sharebutton.config.desc;
 	}else{
@@ -99,12 +101,14 @@ sharebutton.configSharebutton = function (config) {
 	}
 
 	if(config.googleplus){
+		sharebutton.config.googleplus = config.googleplus;
 		sharebutton.config.googleplus.url=config.googleplus.url||sharebutton.config.url;
 	}else{
 		sharebutton.config.googleplus.url=sharebutton.config.url;
 	}
 
 	if(config.linkedin){
+		sharebutton.config.linkedin = config.linkedin;
 		sharebutton.config.linkedin.url = config.linkedin.url||sharebutton.config.url;
 		sharebutton.config.linkedin.title =config.linkedin.title||sharebutton.config.title;
 		sharebutton.config.linkedin.summary=config.linkedin.summary||sharebutton.config.desc;
@@ -117,6 +121,7 @@ sharebutton.configSharebutton = function (config) {
 	}
 
 	if(config.email){
+		sharebutton.config.email = config.email;
 		sharebutton.config.email.url = config.email.url||sharebutton.config.url;
 		sharebutton.config.email.subject =config.email.subject||sharebutton.config.title;
 		sharebutton.config.email.body=config.email.body||sharebutton.config.desc;
@@ -325,6 +330,6 @@ sharebutton.createEmailHREF = function () {
 sharebutton.configFrame=function (winWidth,winHeight) {
 	var winTop = (screen.height / 2) - (winHeight / 2);
     var winLeft = (screen.width / 2) - (winWidth / 2);
-    var str = "javascript:window.open(this.href,'','menubar=no,toolbar=no,resizable=true,scrollbar=yes,"+"height="+winHeight+",width="+winWidth+",top="+winTop+",left="+winLeft+");return false;";
+    var str = "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,"+"height="+winHeight+",width="+winWidth+",top="+winTop+",left="+winLeft+"');return false;";
     return str;
 }
