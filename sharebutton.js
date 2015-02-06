@@ -63,7 +63,7 @@ sharebutton = {
 	},
 	framesize:{
 		width:520,
-		height:350,
+		height:350
 	},
 	createShareButton:function () {},
 	loadCSS:function () {},
