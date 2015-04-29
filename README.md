@@ -1,2 +1,2 @@
 # share-button
-share button demo page
+demo http://luongnv89.github.io/share-button/
